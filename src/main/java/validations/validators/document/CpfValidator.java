@@ -8,12 +8,14 @@ import validations.annotations.document.CPF;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.regex.Pattern;
 
 
 public class CpfValidator implements ConstraintValidator<CPF, Object> {
 
+    public static final Pattern UNFORMATTED = Pattern.compile("(\\d{3})(\\d{3})(\\d{3})(\\d{2})");
+
     private final CPFValidator cpfValidator = new CPFValidator();
-    private final CNPJValidator cnpjValidator = new CNPJValidator();
 
     /**
      *
@@ -57,10 +59,10 @@ public class CpfValidator implements ConstraintValidator<CPF, Object> {
             return true;
 
         // Validate to CPF
-        if (ignoreIfIsEligibleForCNPJ && cnpjValidator.isEligible(doc))
+        if (ignoreIfIsEligibleForCNPJ && CnpjValidator.isEligible(doc))
             return true;
 
-        return cpfValidator.isEligible(doc) && cpfIsValid(doc);
+        return isEligible(doc) && cpfIsValid(doc);
 
     }
 
@@ -104,6 +106,18 @@ public class CpfValidator implements ConstraintValidator<CPF, Object> {
             return String.format("%0" + 11 + "d", Long.parseLong(document));
         else
             return document;
+    }
+
+    /**
+     * @param value String
+     * @return boolean
+     */
+    public static boolean isEligible(final String value) {
+        if (value == null) {
+            return false;
+        } else {
+            return UNFORMATTED.matcher(value).matches();
+        }
     }
 
 }
