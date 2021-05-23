@@ -2,17 +2,19 @@ package cnpj.string;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import validations.StandaloneBeanValidation;
 import validations.annotations.commons.document.CNPJ;
-import validations.annotations.commons.document.CPF;
+
+import javax.validation.ConstraintViolationException;
 
 public class CnpjStringTests {
 
     Entity entity;
 
-    @Before
+    @BeforeEach
     public void beforeEach() {
         entity = new Entity();
     }
@@ -23,16 +25,17 @@ public class CnpjStringTests {
         StandaloneBeanValidation.validate(entity);
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test
     public void validateCnpjMustFail(){
         entity.setCnpj("22975667000180");
-        StandaloneBeanValidation.validate(entity);
-    }
+        final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
+        Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());}
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test
     public void validateCnpjEligibleForCpfMustFail(){
         entity.setCnpj("07074762911");
-        StandaloneBeanValidation.validate(entity);
+        final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
+        Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());
     }
 
     @Test
@@ -41,10 +44,11 @@ public class CnpjStringTests {
         StandaloneBeanValidation.validate(entity);
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test
     public void validateDocumentEligibleForCpfMustFail(){
         entity.setDocument("22975667000180");
-        StandaloneBeanValidation.validate(entity);
+        final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
+        Assertions.assertEquals("document: CNPJ Inválido!",constraintViolationException.getMessage());
     }
 
     @Setter

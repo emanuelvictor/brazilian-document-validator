@@ -1,7 +1,6 @@
 package validations.annotations.commons.document;
 
 
-
 import validations.validators.cef.document.CnpjValidator;
 
 import javax.validation.Constraint;

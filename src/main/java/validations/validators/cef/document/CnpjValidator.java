@@ -10,6 +10,7 @@ import validations.annotations.commons.document.CNPJ;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+
 public class CnpjValidator implements ConstraintValidator<CNPJ, String> {
 
 

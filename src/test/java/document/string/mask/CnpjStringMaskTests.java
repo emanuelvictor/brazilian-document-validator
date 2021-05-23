@@ -1,4 +1,4 @@
-package cnpj.string.mask;
+package document.string.mask;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,18 +1,20 @@
 package cpf.string.mask;
 
-import cpf.string.CpfStringTests;
 import lombok.Getter;
 import lombok.Setter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import validations.StandaloneBeanValidation;
 import validations.annotations.commons.document.CPF;
+
+import javax.validation.ConstraintViolationException;
 
 public class CpfStringMaskTests {
 
     Entity entity;
 
-    @Before
+    @BeforeEach
     public void beforeEach() {
         entity = new Entity();
     }
@@ -23,16 +25,18 @@ public class CpfStringMaskTests {
         StandaloneBeanValidation.validate(entity);
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test
     public void validateCpfMustFail(){
         entity.setCpf("071.747.629-11");
-        StandaloneBeanValidation.validate(entity);
+        final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
+        Assertions.assertEquals("cpf: CPF Inválido!",constraintViolationException.getMessage());
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test
     public void validateCpfEligibleForCnpjMustFail(){
         entity.setCpf("21.975.667/0001-80");
-        StandaloneBeanValidation.validate(entity);
+        final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
+        Assertions.assertEquals("cpf: CPF Inválido!",constraintViolationException.getMessage());
     }
 
     @Test
@@ -41,10 +45,11 @@ public class CpfStringMaskTests {
         StandaloneBeanValidation.validate(entity);
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test
     public void validateDocumentEligibleForCnpjMustFail(){
         entity.setDocument("071.747.629-11");
-        StandaloneBeanValidation.validate(entity);
+        final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
+        Assertions.assertEquals("document: CPF Inválido!",constraintViolationException.getMessage());
     }
 
     @Setter

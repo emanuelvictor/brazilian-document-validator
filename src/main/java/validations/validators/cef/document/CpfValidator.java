@@ -9,6 +9,7 @@ import validations.annotations.commons.document.CPF;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+
 public class CpfValidator implements ConstraintValidator<CPF, String> {
 
 
