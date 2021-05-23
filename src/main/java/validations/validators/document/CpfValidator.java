@@ -1,36 +1,34 @@
-package validations.validators.cef.document;
-
+package validations.validators.document;
 
 import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
 import lombok.Getter;
 import lombok.Setter;
-import validations.annotations.commons.document.CNPJ;
+import validations.annotations.document.CPF;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 
-public class CnpjValidator implements ConstraintValidator<CNPJ, String> {
+public class CpfValidator implements ConstraintValidator<CPF, Object> {
 
-
-    private final CNPJValidator cnpjValidator = new CNPJValidator();
     private final CPFValidator cpfValidator = new CPFValidator();
+    private final CNPJValidator cnpjValidator = new CNPJValidator();
 
     /**
      *
      */
     @Getter
     @Setter
-    private boolean ignoreIfIsEligibleForCPF = true;
+    private boolean ignoreIfIsEligibleForCNPJ = true;
 
 
     /**
      * @param constraintAnnotation Document
      */
     @Override
-    public void initialize(final CNPJ constraintAnnotation) {
-        setIgnoreIfIsEligibleForCPF(constraintAnnotation.ignoreIfIsEligibleForCPF());
+    public void initialize(final CPF constraintAnnotation) {
+        setIgnoreIfIsEligibleForCNPJ(constraintAnnotation.ignoreIfIsEligibleForCNPJ());
     }
 
     /**
@@ -39,8 +37,10 @@ public class CnpjValidator implements ConstraintValidator<CNPJ, String> {
      * @return boolean
      */
     @Override
-    public boolean isValid(final String document, final ConstraintValidatorContext ignore) {
-        return this.isValid(document);
+    public boolean isValid(final Object document, final ConstraintValidatorContext ignore) {
+        if (document instanceof String)
+            return this.isValid((String) document);
+        else return this.isValid(String.valueOf(document));
     }
 
     /**
@@ -53,27 +53,26 @@ public class CnpjValidator implements ConstraintValidator<CNPJ, String> {
         final String doc = prepareDocument(document);
 
         //
-        if (doc == null || doc.length() < 1 || Long.parseLong(doc) == 0) {
+        if (doc == null || doc.length() < 1 || Long.parseLong(doc) == 0)
             return true;
-        }
 
         // Validate to CPF
-        if (ignoreIfIsEligibleForCPF && cpfValidator.isEligible(doc))
+        if (ignoreIfIsEligibleForCNPJ && cnpjValidator.isEligible(doc))
             return true;
 
-        return cnpjValidator.isEligible(doc) && cnpjIsValid(doc);
+        return cpfValidator.isEligible(doc) && cpfIsValid(doc);
 
     }
 
     /**
-     * Validate CNPJ
+     * Validate CPF
      *
      * @param document String
      * @return boolean
      */
-    public boolean cnpjIsValid(final String document) {
+    public boolean cpfIsValid(final String document) {
         try {
-            cnpjValidator.assertValid(document);
+            cpfValidator.assertValid(document);
             return true;
         } catch (Exception e) {
             return false;
@@ -87,9 +86,8 @@ public class CnpjValidator implements ConstraintValidator<CNPJ, String> {
      * @return {String}
      */
     private static String prepareDocument(String document) {
-        if (document == null) {
+        if (document == null)
             return null;
-        }
 
         document = document.replaceAll(java.util.regex.Pattern.quote("."), "");
         document = document.replaceAll(java.util.regex.Pattern.quote("/"), "");

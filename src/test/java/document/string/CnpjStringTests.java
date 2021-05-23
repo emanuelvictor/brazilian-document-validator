@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import validations.StandaloneBeanValidation;
-import validations.annotations.commons.document.CNPJ;
-import validations.annotations.commons.document.CPF;
+import validations.annotations.document.CNPJ;
+import validations.annotations.document.CPF;
 
 import javax.validation.ConstraintViolationException;
 

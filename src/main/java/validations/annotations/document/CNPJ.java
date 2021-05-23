@@ -1,7 +1,7 @@
-package validations.annotations.commons.document;
+package validations.annotations.document;
 
 
-import validations.validators.cef.document.CnpjValidator;
+import validations.validators.document.CnpjValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

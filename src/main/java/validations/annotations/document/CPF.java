@@ -1,8 +1,8 @@
-package validations.annotations.commons.document;
+package validations.annotations.document;
 
 
 
-import validations.validators.cef.document.CpfValidator;
+import validations.validators.document.CpfValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
