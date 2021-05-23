@@ -1,4 +1,4 @@
-package cnpj.string;
+package string.cnpj;
 
 import lombok.Getter;
 import lombok.Setter;

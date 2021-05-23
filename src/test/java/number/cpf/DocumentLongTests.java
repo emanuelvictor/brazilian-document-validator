@@ -1,4 +1,4 @@
-package document.string;
+package number.cpf;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import validations.annotations.document.CPF;
 
 import javax.validation.ConstraintViolationException;
 
-public class CnpjStringTests {
+public class DocumentLongTests {
 
     Entity entity;
 
@@ -22,18 +22,18 @@ public class CnpjStringTests {
 
     @Test
     public void validateDocumentMustPass(){
-        entity.setDocument("07074762911");
+        entity.setDocument(7074762911L);
         StandaloneBeanValidation.validate(entity);
-        entity.setDocument("21975667000180");
+        entity.setDocument(21975667000180L);
         StandaloneBeanValidation.validate(entity);
     }
 
     @Test
     public void validateDocumentWithCnpjInvalidMustFail(){
-        entity.setDocument("22975667000181");
-        javax.validation.ConstraintViolationException constraintViolationException = Assertions.assertThrows(ConstraintViolationException.class, () -> {
-            StandaloneBeanValidation.validate(entity);
-        });
+        entity.setDocument(22975667000181L);
+        ConstraintViolationException constraintViolationException = Assertions.assertThrows(ConstraintViolationException.class, () ->
+            StandaloneBeanValidation.validate(entity)
+        );
         Assertions.assertEquals("document: Invalid CNPJ!", constraintViolationException.getMessage());
     }
 
@@ -43,7 +43,7 @@ public class CnpjStringTests {
 
         @CPF(ignoreIfIsEligibleForCNPJ = true, message = "Invalid CPF!")
         @CNPJ(ignoreIfIsEligibleForCPF = true, message = "Invalid CNPJ!")
-        private String document;
+        private long document;
 
     }
 }

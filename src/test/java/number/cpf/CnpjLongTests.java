@@ -1,4 +1,4 @@
-package cnpj.string.mask;
+package number.cpf;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import validations.annotations.document.CNPJ;
 
 import javax.validation.ConstraintViolationException;
 
-public class CnpjStringMaskTests {
+public class CnpjLongTests {
 
     Entity entity;
 
@@ -21,33 +21,32 @@ public class CnpjStringMaskTests {
 
     @Test
     public void validateCnpjMustPass(){
-        entity.setCnpj("21.975.667/0001-80");
+        entity.setCnpj(21975667000180L);
         StandaloneBeanValidation.validate(entity);
     }
 
     @Test
     public void validateCnpjMustFail(){
-        entity.setCnpj("22.975.667/0001-80");
+        entity.setCnpj(22975667000180L);
         final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
-        Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());
-    }
+        Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());}
 
     @Test
     public void validateCnpjEligibleForCpfMustFail(){
-        entity.setCnpj("070.747.629-11");
+        entity.setCnpj(7074762911L);
         final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
         Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());
     }
 
     @Test
     public void validateCnpjEligibleForCpfMustPass(){
-        entity.setDocument("070.747.629-11");
+        entity.setDocument(7074762911L);
         StandaloneBeanValidation.validate(entity);
     }
 
     @Test
     public void validateDocumentEligibleForCpfMustFail(){
-        entity.setDocument("22.975.667/0001-80");
+        entity.setDocument(22975667000180L);
         final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
         Assertions.assertEquals("document: CNPJ Inválido!",constraintViolationException.getMessage());
     }
@@ -57,10 +56,10 @@ public class CnpjStringMaskTests {
     public static class Entity {
 
         @CNPJ
-        private String cnpj;
+        private long cnpj;
 
         @CNPJ(ignoreIfIsEligibleForCPF = true)
-        private String document;
+        private long document;
 
     }
 }
