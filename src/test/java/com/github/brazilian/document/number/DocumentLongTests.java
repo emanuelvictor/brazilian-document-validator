@@ -1,13 +1,13 @@
-package number.cpf;
+package com.github.brazilian.document.number;
 
+import com.github.brazilian.document.StandaloneBeanValidation;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import validations.StandaloneBeanValidation;
-import validations.annotations.document.CNPJ;
-import validations.annotations.document.CPF;
+import com.github.brazilian.document.annotations.document.CNPJ;
+import com.github.brazilian.document.annotations.document.CPF;
 
 import javax.validation.ConstraintViolationException;
 

@@ -1,8 +1,8 @@
-package validations.annotations.document;
+package com.github.brazilian.document.annotations.document;
 
 
 
-import validations.validators.document.CpfValidator;
+import com.github.brazilian.document.validators.document.CpfValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

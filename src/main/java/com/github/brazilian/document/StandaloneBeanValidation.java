@@ -1,4 +1,4 @@
-package validations;
+package com.github.brazilian.document;
 
 import javax.validation.*;
 import java.util.Set;

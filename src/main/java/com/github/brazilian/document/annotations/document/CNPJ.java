@@ -1,7 +1,7 @@
-package validations.annotations.document;
+package com.github.brazilian.document.annotations.document;
 
 
-import validations.validators.document.CnpjValidator;
+import com.github.brazilian.document.validators.document.CnpjValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
