@@ -10,7 +10,7 @@ import com.github.brazilian.document.annotations.document.CPF;
 
 import javax.validation.ConstraintViolationException;
 
-public class CpfStringTests {
+public class CPFStringTests {
 
     Entity entity;
 

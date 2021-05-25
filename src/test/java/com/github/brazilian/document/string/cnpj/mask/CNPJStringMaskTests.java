@@ -1,4 +1,4 @@
-package com.github.brazilian.document.string.document.mask;
+package com.github.brazilian.document.string.cnpj.mask;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import com.github.brazilian.document.annotations.document.CNPJ;
 
 import javax.validation.ConstraintViolationException;
 
-public class DocumentStringMaskTests {
+public class CNPJStringMaskTests {
 
     Entity entity;
 
