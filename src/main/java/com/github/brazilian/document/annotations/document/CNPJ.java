@@ -1,7 +1,7 @@
 package com.github.brazilian.document.annotations.document;
 
 
-import com.github.brazilian.document.validators.document.CnpjValidator;
+import com.github.brazilian.document.validators.document.CNPJValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Repeatable(CNPJ.List.class)
 @Documented
-@Constraint(validatedBy = {CnpjValidator.class})
+@Constraint(validatedBy = {CNPJValidator.class})
 public @interface CNPJ {
 
     boolean ignoreIfIsEligibleForCPF() default false;

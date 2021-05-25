@@ -1,5 +1,6 @@
 package com.github.brazilian.document.string.document;
 
+import com.github.brazilian.document.annotations.document.Document;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +27,13 @@ public class DocumentStringTests {
         StandaloneBeanValidation.validate(entity);
         entity.setDocument("21975667000180");
         StandaloneBeanValidation.validate(entity);
+//        entity.setDocument("07074762914");
+//        StandaloneBeanValidation.validate(entity);
+//        entity.setDocument("21975667000182");
+//        StandaloneBeanValidation.validate(entity);
+
+        entity.setCpf("07074762912");
+        StandaloneBeanValidation.validate(entity);
     }
 
     @Test
@@ -41,9 +49,12 @@ public class DocumentStringTests {
     @Getter
     public static class Entity {
 
-        @CPF(ignoreIfIsEligibleForCNPJ = true, message = "Invalid CPF!")
-        @CNPJ(ignoreIfIsEligibleForCPF = true, message = "Invalid CNPJ!")
+        @Document(ignoreIfIsEligibleForCNPJ = true, message = "Invalid CPF!")
+        @Document(ignoreIfIsEligibleForCPF = true, message = "Invalid CNPJ!")
         private String document;
+
+        @Document(message = "Invalid CPF!")
+        private String cpf;
 
     }
 }
