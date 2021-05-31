@@ -8,15 +8,42 @@ http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>brazilian-document-validators</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>br-document</name>
+    <description>Br document validations</description>
+    <url>https://github.com/emanuelvictor/brazilian-document-validator</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Emanuel Victor</name>
+            <email>emanuel.info@gmail.com</email>
+<!--            <organization>EV</organization>-->
+<!--            <organizationUrl>http://www.sonatype.com</organizationUrl>-->
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/emanuelvictor/brazilian-document-validator.git</connection>
+        <developerConnection>scm:git:ssh://github.com:emanuelvictor/brazilian-document-validator.git</developerConnection>
+        <url>http://github.com/emanuelvictor/brazilian-document-validator/tree/main</url>
+    </scm>
+
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-            <java.version>1.8</java.version>
-            <!--Caelumn Brazilian document validation-->
+        <java.version>1.8</java.version>
+        <!--Caelumn Brazilian document validation-->
         <junit-jupiter-api.version>5.7.1</junit-jupiter-api.version>
         <lombok.version>1.18.20</lombok.version>
         <spring-boot-starter-validation.version>2.4.5</spring-boot-starter-validation.version>
-            <caelum-stella-core.version>2.1.2</caelum-stella-core.version>
+        <caelum-stella-core.version>2.1.2</caelum-stella-core.version>
     </properties>
 
     <dependencies>
@@ -48,5 +75,80 @@ http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <version>${caelum-stella-core.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+        </plugins>
+    </build>
 
 </project>
