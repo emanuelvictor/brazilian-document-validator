@@ -1,12 +1,12 @@
-package com.github.brazilian.document.string.cpf;
+package com.github.emanuelvictor.document.string.cpf;
 
+import com.github.emanuelvictor.document.StandaloneBeanValidation;
+import com.github.emanuelvictor.document.annotations.document.CPF;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.github.brazilian.document.StandaloneBeanValidation;
-import com.github.brazilian.document.annotations.document.CPF;
 
 import javax.validation.ConstraintViolationException;
 

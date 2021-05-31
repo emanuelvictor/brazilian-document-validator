@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd
+http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.emanuelvictor</groupId>
-    <artifactId>brazilian-document-validator</artifactId>
+    <groupId>br.document</groupId>
+    <artifactId>brazilian-document-validators</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>br-document</name>
@@ -30,8 +32,7 @@
         <connection>scm:git:git://github.com/emanuelvictor/brazilian-document-validator.git</connection>
         <developerConnection>scm:git:ssh://github.com:emanuelvictor/brazilian-document-validator.git</developerConnection>
         <url>http://github.com/emanuelvictor/brazilian-document-validator/tree/main</url>
-      <tag>HEAD</tag>
-  </scm>
+    </scm>
 
 
     <distributionManagement>
@@ -173,7 +174,6 @@
                         </goals>
                     </execution>
                 </executions>
-
             </plugin>
 
 

@@ -1,16 +1,16 @@
-package com.github.brazilian.document.string.cnpj.mask;
+package com.github.emanuelvictor.document.string.cnpj;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.github.brazilian.document.StandaloneBeanValidation;
-import com.github.brazilian.document.annotations.document.CNPJ;
+import com.github.emanuelvictor.document.StandaloneBeanValidation;
+import com.github.emanuelvictor.document.annotations.document.CNPJ;
 
 import javax.validation.ConstraintViolationException;
 
-public class CNPJStringMaskTests {
+public class CNPJStringTests {
 
     Entity entity;
 
@@ -21,33 +21,32 @@ public class CNPJStringMaskTests {
 
     @Test
     public void validateCnpjMustPass(){
-        entity.setCnpj("21.975.667/0001-80");
+        entity.setCnpj("21975667000180");
         StandaloneBeanValidation.validate(entity);
     }
 
     @Test
     public void validateCnpjMustFail(){
-        entity.setCnpj("22.975.667/0001-80");
+        entity.setCnpj("22975667000180");
         final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
-        Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());
-    }
+        Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());}
 
     @Test
     public void validateCnpjEligibleForCpfMustFail(){
-        entity.setCnpj("070.747.629-11");
+        entity.setCnpj("07074762911");
         final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
         Assertions.assertEquals("cnpj: CNPJ Inválido!",constraintViolationException.getMessage());
     }
 
     @Test
     public void validateCnpjEligibleForCpfMustPass(){
-        entity.setDocument("070.747.629-11");
+        entity.setDocument("07074762911");
         StandaloneBeanValidation.validate(entity);
     }
 
     @Test
     public void validateDocumentEligibleForCpfMustFail(){
-        entity.setDocument("22.975.667/0001-80");
+        entity.setDocument("22975667000180");
         final ConstraintViolationException constraintViolationException = Assertions.assertThrows( ConstraintViolationException.class, () -> StandaloneBeanValidation.validate(entity));
         Assertions.assertEquals("document: CNPJ Inválido!",constraintViolationException.getMessage());
     }

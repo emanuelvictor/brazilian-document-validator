@@ -1,7 +1,6 @@
-package com.github.brazilian.document.validators.document;
+package com.github.emanuelvictor.document.validators.document;
 
-
-import com.github.brazilian.document.annotations.document.CNPJ;
+import com.github.emanuelvictor.document.annotations.document.CPF;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,26 +9,26 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
 
-public class CNPJValidator implements ConstraintValidator<CNPJ, Object> {
+public class CPFValidator implements ConstraintValidator<CPF, Object> {
 
-    public static final Pattern UNFORMATTED = Pattern.compile("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})");
+    public static final Pattern UNFORMATTED = Pattern.compile("(\\d{3})(\\d{3})(\\d{3})(\\d{2})");
 
-    private final static br.com.caelum.stella.validation.CNPJValidator cnpjValidator = new br.com.caelum.stella.validation.CNPJValidator();
+    private final static br.com.caelum.stella.validation.CPFValidator cpfValidator = new br.com.caelum.stella.validation.CPFValidator();
 
     /**
      *
      */
     @Getter
     @Setter
-    private boolean ignoreIfIsEligibleForCPF = true;
+    private boolean ignoreIfIsEligibleForCNPJ = true;
 
 
     /**
      * @param constraintAnnotation Document
      */
     @Override
-    public void initialize(final CNPJ constraintAnnotation) {
-        setIgnoreIfIsEligibleForCPF(constraintAnnotation.ignoreIfIsEligibleForCPF());
+    public void initialize(final CPF constraintAnnotation) {
+        setIgnoreIfIsEligibleForCNPJ(constraintAnnotation.ignoreIfIsEligibleForCNPJ());
     }
 
     /**
@@ -58,22 +57,22 @@ public class CNPJValidator implements ConstraintValidator<CNPJ, Object> {
             return true;
 
         // Validate to CPF
-        if (ignoreIfIsEligibleForCPF && CPFValidator.isEligible(doc))
+        if (ignoreIfIsEligibleForCNPJ && CNPJValidator.isEligible(doc))
             return true;
 
-        return isEligible(doc) && cnpjIsValid(doc);
+        return isEligible(doc) && cpfIsValid(doc);
 
     }
 
     /**
-     * Validate CNPJ
+     * Validate CPF
      *
      * @param document String
      * @return boolean
      */
-    public static boolean cnpjIsValid(final String document) {
+    public static boolean cpfIsValid(final String document) {
         try {
-            cnpjValidator.assertValid(document);
+            cpfValidator.assertValid(document);
             return true;
         } catch (Exception e) {
             return false;
