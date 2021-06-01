@@ -1,12 +1,12 @@
-package com.github.emanuelvictor.string.cnpj;
+package io.github.emanuelvictor.string.cnpj;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.github.emanuelvictor.StandaloneBeanValidation;
-import com.github.emanuelvictor.annotations.document.CNPJ;
+import io.github.emanuelvictor.StandaloneBeanValidation;
+import io.github.emanuelvictor.annotations.document.CNPJ;
 
 import javax.validation.ConstraintViolationException;
 

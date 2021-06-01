@@ -1,8 +1,7 @@
-package com.github.emanuelvictor.annotations.document;
+package io.github.emanuelvictor.annotations.document;
 
 
-
-import com.github.emanuelvictor.validators.document.CPFValidator;
+import io.github.emanuelvictor.validators.document.CNPJValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -16,14 +15,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-@Repeatable(CPF.List.class)
+@Repeatable(CNPJ.List.class)
 @Documented
-@Constraint(validatedBy = {CPFValidator.class})
-public @interface CPF {
+@Constraint(validatedBy = {CNPJValidator.class})
+public @interface CNPJ {
 
-    boolean ignoreIfIsEligibleForCNPJ() default false;
+    boolean ignoreIfIsEligibleForCPF() default false;
 
-    String message() default "CPF Inválido!";
+    String message() default "CNPJ Inválido!";
 
     Class<?>[] groups() default {};
 
@@ -33,6 +32,6 @@ public @interface CPF {
     @Retention(RUNTIME)
     @Documented
     @interface List {
-        CPF[] value();
+        CNPJ[] value();
     }
 }
