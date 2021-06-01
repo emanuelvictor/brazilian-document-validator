@@ -1,4 +1,4 @@
-package com.github.emanuelvictor.document;
+package com.github.emanuelvictor;
 
 import javax.validation.*;
 import java.util.Set;

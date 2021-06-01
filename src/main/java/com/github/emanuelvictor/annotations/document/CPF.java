@@ -1,8 +1,8 @@
-package com.github.emanuelvictor.document.annotations.document;
+package com.github.emanuelvictor.annotations.document;
 
 
 
-import com.github.emanuelvictor.document.validators.document.CPFValidator;
+import com.github.emanuelvictor.validators.document.CPFValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
