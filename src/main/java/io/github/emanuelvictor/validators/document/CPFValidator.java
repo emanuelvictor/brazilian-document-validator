@@ -6,10 +6,14 @@ import lombok.Setter;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.regex.Pattern;
 
 
-public class CPFValidator implements ConstraintValidator<CPF, Object> {
+public class CPFValidator extends AbstractValidator implements ConstraintValidator<CPF, Object> {
+
+    private static final int DOCUMENT_LENGTH = 11;
 
     public static final Pattern UNFORMATTED = Pattern.compile("(\\d{3})(\\d{3})(\\d{3})(\\d{2})");
 
@@ -80,6 +84,16 @@ public class CPFValidator implements ConstraintValidator<CPF, Object> {
     }
 
     /**
+     * Validate CPF
+     *
+     * @param document Long
+     * @return boolean
+     */
+    public static boolean cpfIsValid(final Long document) {
+        return cpfIsValid(format(document));
+    }
+
+    /**
      * Remove '.', '/' e '-'
      *
      * @param document {String}
@@ -100,22 +114,41 @@ public class CPFValidator implements ConstraintValidator<CPF, Object> {
             return null;
         }
 
-        if (document.length() < 11)
-            return String.format("%0" + 11 + "d", Long.parseLong(document));
-        else
-            return document;
+        return format(document);
     }
 
     /**
-     * @param value String
+     * @param document String
      * @return boolean
      */
-    public static boolean isEligible(final String value) {
-        if (value == null) {
+    public static boolean isEligible(final String document) {
+        if (document == null)
             return false;
-        } else {
-            return UNFORMATTED.matcher(value).matches();
-        }
+        return UNFORMATTED.matcher(format(document)).matches();
+    }
+
+    /**
+     * @param input Long
+     * @return String
+     */
+    private static String format(final @NotNull Long input) {
+        return format(DOCUMENT_LENGTH, input);
+    }
+
+    /**
+     * @param input String
+     * @return String
+     */
+    private static String format(final @NotBlank String input) {
+        return format(DOCUMENT_LENGTH, input);
+    }
+
+    /**
+     * @param value Long
+     * @return boolean
+     */
+    public static boolean isEligible(final Long value) {
+        return isEligible(format(value));
     }
 
 }

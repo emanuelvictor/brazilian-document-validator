@@ -7,10 +7,14 @@ import lombok.Setter;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.regex.Pattern;
 
 
 public class CNPJValidator implements ConstraintValidator<CNPJ, Object> {
+
+    private static final int DOCUMENT_LENGTH = 14;
 
     public static final Pattern UNFORMATTED = Pattern.compile("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})");
 
@@ -81,6 +85,34 @@ public class CNPJValidator implements ConstraintValidator<CNPJ, Object> {
     }
 
     /**
+     * Validate CNPJ
+     *
+     * @param document Long
+     * @return boolean
+     */
+    public static boolean cnpjIsValid(final Long document) {
+        return cnpjIsValid(format(document));
+    }
+
+    /**
+     * @param digits int
+     * @param input  String
+     * @return String
+     */
+    protected static String format(@NotNull final int digits, final @NotBlank String input) {
+        return format(digits, Long.parseLong(input));
+    }
+
+    /**
+     * @param digits int
+     * @param input  Long
+     * @return String
+     */
+    protected static String format(@NotNull final int digits, final @NotBlank Long input) {
+        return String.format("%0" + digits + "d", input);
+    }
+
+    /**
      * Remove '.', '/' e '-'
      *
      * @param document {String}
@@ -101,22 +133,44 @@ public class CNPJValidator implements ConstraintValidator<CNPJ, Object> {
             return null;
         }
 
-        if (document.length() < 11)
-            return String.format("%0" + 11 + "d", Long.parseLong(document));
-        else
-            return document;
+        return format(document);
     }
 
     /**
-     * @param value String
+     * @param document String
      * @return boolean
      */
-    public static boolean isEligible(final String value) {
-        if (value == null) {
+    public static boolean isEligible(final String document) {
+        if (document == null)
             return false;
-        } else {
-            return UNFORMATTED.matcher(value).matches();
-        }
+
+// If you complete one CPF document with left zeros like a CNPJ, it will be eligible for CNPJ.
+// The rule is: If is eligible for CPF, cannot be eligible for CNPJ.
+            return !CPFValidator.isEligible(document) && UNFORMATTED.matcher(format(document)).matches();
+    }
+
+    /**
+     * @param input Long
+     * @return String
+     */
+    private static String format(final @NotNull Long input) {
+        return format(DOCUMENT_LENGTH, input);
+    }
+
+    /**
+     * @param input String
+     * @return String
+     */
+    private static String format(final @NotBlank String input) {
+        return format(DOCUMENT_LENGTH, input);
+    }
+
+    /**
+     * @param value Long
+     * @return boolean
+     */
+    public static boolean isEligible(final Long value) {
+        return isEligible(format(value));
     }
 
 }
